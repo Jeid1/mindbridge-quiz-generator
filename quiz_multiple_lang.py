@@ -220,6 +220,15 @@ def main():
         ["multiple-choice", "true-false", "open-ended"]
     )
 
+    temperature = st.slider(
+    "Créativité du quiz (température)",
+    min_value=0.0,
+    max_value=4.0,
+    value=0.0,
+    step=0.2,
+    help="0.0 = réponses consistantes, 4.0 = réponses plus créatives"
+    )
+
     # Generate Quiz button
     if st.button("Generate Quiz"):
         if not openai_api_key:
@@ -233,7 +242,7 @@ def main():
         prompt_template = choose_prompt_template(quiz_type, context)
 
         # 2) Initialize the LLM
-        llm = ChatOpenAI(model="gpt-4o", temperature=0.0)
+        llm = ChatOpenAI(model="gpt-4o", temperature=temperature)
 
         # 3) Create the quiz chain
         chain = create_quiz_chain(prompt_template, llm,

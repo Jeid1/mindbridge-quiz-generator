@@ -1,0 +1,141 @@
+ARCHITECTURE DU QUIZ GENERATOR
+============================
+
+1. FONCTIONS INTERFACE STREAMLIT
+-------------------------------
+Interface utilisateur principale :
+- st.title()          : Titre de l'application
+- st.write()          : Affichage de texte
+- st.sidebar          : Barre latérale (API key)
+- st.file_uploader() : Upload de PDF
+- st.text_area()     : Zone de texte pour le contexte
+- st.number_input()  : Nombre de questions
+- st.selectbox()     : Sélection type de quiz
+- st.button()        : Bouton générer quiz
+- st.form()          : Formulaire pour les réponses
+- st.success()       : Messages de succès
+- st.error()         : Messages d'erreur
+- st.warning()       : Messages d'avertissement
+
+2. FONCTIONS LLM ET GÉNÉRATION DE QUIZ
+------------------------------------
+Configuration et utilisation du LLM :
+- ChatOpenAI()        : Configuration du modèle
+- create_quiz_chain() : Création de la chaîne LLM
+- choose_prompt_template() : Sélection template selon langue
+
+Classes de Quiz :
+- QuizTrueFalse      : Gestion quiz vrai/faux
+- QuizMultipleChoice : Gestion QCM
+- QuizOpenEnded      : Gestion questions ouvertes
+
+3. FONCTIONS DE TRAITEMENT PDF
+----------------------------
+def extract_text_from_pdf():
+    """
+    Extraction du texte des PDFs
+    - Utilise PyMuPDF (fitz)
+    - Ouvre le document
+    - Extrait le texte page par page
+    - Retourne le texte complet
+    """
+
+4. FONCTIONS DE DÉTECTION DE LANGUE
+--------------------------------
+def detect_language():
+    """
+    Détection de la langue du texte
+    - Utilise langdetect
+    - Analyse le texte fourni
+    - Retourne le code de la langue
+    """
+
+5. FONCTIONS DE GESTION QUESTIONS/RÉPONSES
+---------------------------------------
+def display_questions():
+    """
+    Affichage des questions selon le type
+    - Gestion interface QCM
+    - Gestion interface Vrai/Faux
+    - Gestion interface Questions ouvertes
+    """
+
+def process_submission():
+    """
+    Traitement des réponses et calcul du score
+    - Vérification des réponses
+    - Calcul du score
+    - Affichage des résultats
+    """
+
+FLUX DE DONNÉES
+==============
+1. Utilisateur upload PDF
+2. Extraction du texte
+3. Détection de la langue
+4. Génération du quiz via LLM
+5. Affichage des questions
+6. Collecte des réponses
+7. Calcul et affichage du score
+
+ORGANISATION DU CODE
+==================
+1. Interface (Streamlit)
+   - Configuration interface
+   - Gestion entrées utilisateur
+   - Affichage résultats
+
+2. Traitement (PDF & Langue)
+   - Extraction texte PDF
+   - Détection langue
+
+3. LLM (Génération Quiz)
+   - Création chaîne de traitement
+   - Sélection template
+
+4. Questions & Réponses
+   - Affichage questions
+   - Traitement réponses
+   - Calcul scores
+
+5. Modèles de Données
+   - Structure quiz vrai/faux
+   - Structure QCM
+   - Structure questions ouvertes
+
+INTERACTIONS ENTRE COMPOSANTS
+===========================
+1. Interface → PDF Processor
+   - Envoi fichier PDF pour traitement
+
+2. PDF Processor → LLM
+   - Envoi texte extrait pour analyse
+
+3. LLM → Quiz Manager
+   - Génération questions et réponses
+
+4. Quiz Manager → Interface
+   - Affichage quiz généré
+
+5. Interface → Quiz Manager
+   - Envoi réponses utilisateur
+
+6. Quiz Manager → Interface
+   - Retour score et corrections
+
+NOTES TECHNIQUES
+===============
+1. Gestion des erreurs
+   - Validation PDF
+   - Vérification API key
+   - Contrôle réponses utilisateur
+
+2. Session State
+   - Stockage questions
+   - Stockage réponses
+   - Maintien score
+
+3. Sécurité
+   - Protection API key
+   - Validation entrées
+   - Gestion sessions 
